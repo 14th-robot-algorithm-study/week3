@@ -4,16 +4,17 @@ using namespace std;
 
 int nodeCnt, edgeCnt;
 vector<int> v[101];
-int visited[101]; 
+int visited[100];
 int totalCnt = 0;
 
 void func(int now) {
 	visited[now] = 1;
+
 	for (int i = 0; i < v[now].size(); i++) {
-		int next = v[now][i];
-		if (visited[next] == 0) {
-			totalCnt++;       
-			func(next);       
+		if (visited[v[now][i]] == 0) {
+			visited[v[now][i]] = 1;
+			totalCnt++;
+			func(v[now][i]);
 		}
 	}
 }
@@ -29,7 +30,8 @@ int main() {
 		v[to].push_back(from);
 	}
 
-	func(1);  
+	visited[1] = 1;
+	func(1);
 
 	cout << totalCnt << '\n';
 	return 0;
