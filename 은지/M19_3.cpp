@@ -1,6 +1,6 @@
 // [방법 1]
 // ---------------------------------------------------------------
-#include <iostream>
+#include <iostream> 
 using namespace std;
 
 struct Point {
