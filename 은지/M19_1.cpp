@@ -30,7 +30,7 @@ int main() {
 		}
 
 		sum += arr[ny][nx];
-	}
+	} 
 
 	std::cout << sum;
 
