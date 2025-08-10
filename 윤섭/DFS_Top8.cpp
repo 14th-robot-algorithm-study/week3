@@ -2,7 +2,6 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
-
 struct Edge {
 	int to;
 	int distance;
