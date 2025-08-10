@@ -55,7 +55,7 @@ int main()
 			int rotateDir[5] = { 0 };
 			rotateDir[num] = rotate;
 
-			/*=====     오른쪽 자석 회전 전파 검사     =====*/ 
+			/*=====     오른쪽 자석 회전 검사     =====*/ 
 			for (int j = num; j < 4; j++) {
 				if (magnet[j][2] != magnet[j + 1][6])
 					rotateDir[j + 1] = -rotateDir[j];
@@ -63,7 +63,7 @@ int main()
 					break;
 			}
 
-			/*=====     왼쪽 자석 회전 전파 검사     =====*/
+			/*=====     왼쪽 자석 회전 검사     =====*/
 			for (int j = num; j > 1; j--) {
 				if (magnet[j][6] != magnet[j - 1][2])
 					rotateDir[j - 1] = -rotateDir[j];
