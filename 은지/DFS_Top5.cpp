@@ -9,8 +9,11 @@ int visited[100];
 
 void func(int lev, int count, int cnt) {
 	if (cnt == N) {
-		count += arr[lev][0];
-		min_val = std::min(min_val, count);
+		if (arr[lev][0] != 0) {
+			count += arr[lev][0];
+			min_val = std::min(min_val, count);
+		}
+
 		return;
 	}
 
