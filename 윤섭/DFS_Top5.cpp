@@ -3,6 +3,7 @@
 #include <algorithm>
 using namespace std;
 
+
 int N;
 int arr[12][12];
 int minCost = 21e8;
