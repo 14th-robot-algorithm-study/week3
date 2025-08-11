@@ -12,7 +12,7 @@ int visited[101];
 //1. 가지고 있는 것 중에 큰 걸로 넘어간다.
 
 void preorder(int n) {
-	visited[n] = 1;
+	visited[n] = 1; 
 	cout << n << " ";
 	if (v[n].empty())return;
 	sort(v[n].rbegin(), v[n].rend());
