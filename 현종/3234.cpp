@@ -6,7 +6,7 @@ int N;
 int w[10];
 int visited[1000];
 int put[10][2];
-int w_l, w_r, w_total;
+int w_l, w_r, w_total; 
 int cnt;
 int flag;
  
