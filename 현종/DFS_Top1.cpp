@@ -5,7 +5,7 @@ int arr[101][101];
 int N, M;
 int cnt;
 int visited[101];
-bool flag = false;
+bool flag = false; 
 void func(int cur) {
 	visited[cur] = true;
 	cnt++;
