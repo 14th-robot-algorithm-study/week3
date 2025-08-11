@@ -22,7 +22,7 @@ int main() {
 
 	int N;
 	cin >> N;
-	for (int i = 0; i < N; i++) {
+	for (int i = 0; i < N; i++) { 
 		int root, left, right;
 		cin >> root >> left >> right;
 		tr[root][0] = left;
