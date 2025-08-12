@@ -21,10 +21,8 @@ void chess(int lev, int cnt) {
 		}
 
 		visited[i]  = 1;
-		arr[lev][i] = 2;
 		chess(lev + 1, cnt + 1);
 		visited[i]  = 0;
-		arr[lev][i] = 1;
 	}
 
 }
