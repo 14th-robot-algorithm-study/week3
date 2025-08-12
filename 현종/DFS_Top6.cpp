@@ -6,7 +6,7 @@ string curse;
 string devil, engel;
 string tmp;
 int d_visit[101], e_visit[101];
-int cnt;
+int cnt; 
 
 void dfs1(int n, int idx);
 void dfs2(int n, int idx);
