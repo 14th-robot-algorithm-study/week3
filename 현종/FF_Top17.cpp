@@ -12,7 +12,7 @@ int arr[100][100];
 int cost[100][100];
 int dy[4] = { 1,-1,0,0 }, dx[4] = { 0,0,1,-1 };
 vector<Point> v;
-queue<Point> q;
+queue<Point> q; 
 int visited[100][100];
 int num;
 void bfs(Point st, int num) {
