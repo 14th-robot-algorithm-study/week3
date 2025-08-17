@@ -10,7 +10,7 @@ int parent[26];
 int visited[26];
 
 int find(int tar) {
-	if (tar == parent[tar]) {
+	if (tar == parent[tar]) { 
 		return tar;
 	}
 
