@@ -1,3 +1,4 @@
+// ===================== [방법 1] =====================
 #include <iostream>
 #include <string>
 using namespace std;
@@ -111,3 +112,81 @@ int main() {
 
 	return 0;
 }
+// ====================================================
+
+
+// ===================== [방법 2] =====================
+#include <iostream>
+using namespace std;
+
+int N; 
+int parent[26];
+int pop[26]; 
+int isAlive[26]; 
+
+int Find(int now) {
+	if (now == parent[now])
+		return now;
+	return parent[now] = Find(parent[now]);
+}
+
+void Union(int a, int b) {
+	int pa = Find(a);
+	int pb = Find(b);
+	if (pa == pb)
+		return;
+	parent[pb] = pa;
+	pop[pa] += pop[pb];
+	pop[pb] = 0;
+}
+
+void war(int a, int b) {
+	int pa = Find(a);
+	int pb = Find(b);
+	
+	if (pa == pb)
+		return;
+	
+	if (pop[pa] > pop[pb]) {
+		pop[pb] = 0; 
+	}
+	else if (pop[pb] > pop[pa]) {
+		pop[pa] = 0; 
+	}
+	else {
+		pop[pa] = 0;
+		pop[pb] = 0; 
+	}
+}
+
+int main() {
+	cin >> N;
+	for (int i = 0; i < N; i++) {
+		cin >> pop[i];
+		parent[i] = i; 
+	}
+	int Q;
+	cin >> Q;
+	for (int i = 0; i < Q; i++) {
+		string cmd;
+		char A, B;
+		cin >> cmd >> A >> B;
+		int a = A - 'A';
+		int b = B - 'A';
+
+		if (cmd == "alliance") {
+			Union(a, b);
+		}
+		else {
+			war(a, b);
+		}
+	}
+
+	int cnt = 0; 
+	for (int i = 0; i < N; i++) {
+		if (pop[Find(i)] != 0)
+			cnt++;
+	}
+	cout << cnt;
+}
+// ====================================================
