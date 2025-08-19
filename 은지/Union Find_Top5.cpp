@@ -1,74 +1,73 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
+int width, N;
+int set_cnt;
+int arr[1'00'000];
+int point[1'000'000];
+int parent[1'00'000];
+
+int find(int tar) {
+	if (tar == parent[tar]) {
+		return tar;
+	}
+
+	return parent[tar] = find(parent[tar]);
+}
+
+void setUnion(int a, int b) {
+	int t1 = find(a);
+	int t2 = find(b);
+
+	if (t1 == t2) {
+		return;
+	}
+
+	parent[t2] = t1;
+	point[t1] += point[t2];
+	point[t2]  = 0;
+	set_cnt--;
+}
+
+void init() {
+	for (int i = 0; i < width; i++) {
+		parent[i] = i;
+	}
+
+	for (int i = 0; i < width; i++) {
+		arr[i] = -1;
+	}
+
+	for (int i = 0; i < width; i++) {
+		point[i] = 1;
+	}
+}
+
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+	std::cin >> width >> N;
+	
+	init();
 
-    int width, N;
-    if (!(cin >> width >> N)) return 0;
+	for (int i = 0; i < N; i++) {
+		int idx;
+		std::cin >> idx;
 
-    vector<int> pos(N);
-    for (int i = 0; i < N; ++i) cin >> pos[i];
+		arr[idx] = idx;
+		set_cnt++;
 
-    // DSU arrays
-    vector<int> parent(width, -1);   // -1이면 아직 돌이 없음
-    vector<int> sz(width, 0);
-    vector<char> active(width, 0);
+		if (idx != 0 && arr[idx - 1] != -1) {
+			setUnion(idx - 1, idx);
+		}
+		
+		if (idx != width-1 && arr[idx + 1] != -1) {
+			setUnion(idx + 1, idx);
+		}
 
-    auto find_set = [&](int v) {
-        while (parent[v] != v) {
-            parent[v] = parent[parent[v]]; // path halving
-            v = parent[v];
-        }
-        return v;
-    };
+		std::cout << set_cnt << " "<< * max_element(point, point + N) << '\n';
+	}
 
-    auto unite = [&](int a, int b) {
-        a = find_set(a);
-        b = find_set(b);
-        if (a == b) return sz[a]; // 이미 같은 집합
-        if (sz[a] < sz[b]) swap(a, b);
-        parent[b] = a;
-        sz[a] += sz[b];
-        return sz[a]; // 새 루트 a의 사이즈
-    };
 
-    long long groups = 0; // 현재 연결 컴포넌트 수
-    int max_size = 0;     // 가장 큰 컴포넌트 크기
-
-    for (int i = 0; i < N; ++i) {
-        int p = pos[i];
-
-        if (!active[p]) {
-            // 새로 돌 올림: make-set
-            active[p] = 1;
-            parent[p] = p;
-            sz[p] = 1;
-            groups += 1;
-            max_size = max(max_size, 1);
-
-            // 왼쪽 이웃
-            if (p - 1 >= 0 && active[p - 1]) {
-                int rp = find_set(p), rl = find_set(p - 1);
-                if (rp != rl) {
-                    groups -= 1;
-                    int newSize = unite(rp, rl);
-                    max_size = max(max_size, newSize);
-                }
-            }
-            // 오른쪽 이웃
-            if (p + 1 < width && active[p + 1]) {
-                int rp = find_set(p), rr = find_set(p + 1);
-                if (rp != rr) {
-                    groups -= 1;
-                    int newSize = unite(rp, rr);
-                    max_size = max(max_size, newSize);
-                }
-            }
-        }
-        // 이미 돌이 있던 칸이 들어오면 상태 변화 없이 출력
-        cout << groups << ' ' << max_size << "\n";
-    }
-    return 0;
+	return 0;
 }
