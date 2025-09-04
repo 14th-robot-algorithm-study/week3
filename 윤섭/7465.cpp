@@ -105,3 +105,56 @@ int main() {
 		cout << "#" << tc << " " << group_cnt << "\n";
 	}
 }
+
+
+/* DFS */
+	#include <iostream>
+	#include <queue>
+	#include <cstring>
+	using namespace std;
+
+	int T;
+	int N, M;
+	int group_cnt;
+	vector<vector<int>> v;
+	int visited[101];
+
+	void dfs(int cur) {
+		for (int i = 0; i < v[cur].size(); i++) {
+			int next = v[cur][i];
+			if (visited[next] == 1) continue;
+			visited[next] = 1;
+			dfs(next);
+		}
+	}
+
+	int main() {
+		cin >> T;
+	
+		for (int tc = 1; tc <= T; tc++) {
+			group_cnt = 0;
+		
+			cin >> N >> M;
+			v.assign(N + 1, vector<int>());
+			memset(visited, 0, sizeof(visited));
+
+			for (int i = 0; i < M; i++) {
+				int from, to;
+				cin >> from >> to;
+				v[from].push_back(to);
+				v[to].push_back(from);
+
+			}
+		
+			for (int i = 1; i <= N; i++) {
+				if (visited[i] == 0) {
+					visited[i] = 1;
+					group_cnt++;
+					dfs(i);
+				}
+			}
+
+			cout << "#" << tc << " " << group_cnt << "\n";
+		}
+	}
+
